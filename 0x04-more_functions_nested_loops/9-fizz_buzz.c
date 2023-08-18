@@ -1,9 +1,7 @@
 #include <stdio.h>
 
 /**
- * main - Entry point
- *
- * Fizz-Buzz - program that prints the numbers from 1 to 100
+ * main - Entery point
  *
  * Return: 0 (success)
 */
@@ -17,17 +15,14 @@ int main(void)
 		if ((i % 3 == 0) && !(i % 5 == 0))
 		{
 			printf("Fizz");
-			continue;
 		}
 		else if ((i % 5 == 0) && !(i % 3 == 0))
 		{
 			printf("Buzz");
-			continue;
 		}
 		else if ((i % 3 == 0) && (i % 5 == 0))
 		{
-			printf("FizzBuzz");
-			continue;
+			printf("fizz Buzz");
 		}
 		else
 		{
@@ -44,3 +39,4 @@ int main(void)
 	}
 	return (0);
 }
+
