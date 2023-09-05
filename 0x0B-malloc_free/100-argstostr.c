@@ -17,11 +17,15 @@ int str_len(char *s)
 }
 
 /**
- * *argstostr - function that concatenates all the argumentr
- * @ac: variable type int
- * @av: argstostr
- * Retuen: a pointer to a new string
+ * argstostr - concatenates all the arguments.
+ * @ac: The number of arguments.
+ * @av: An array of argument strings.
+ *
+ * Return: A pointer to a new string containing the concatenated arguments,
+ *		separated by newline characters ('\n'). If ac == 0 or av == NULL,
+ *		or if memory allocation fails, returns NULL.
 */
+
 char *argstostr(int ac, char **av)
 {
 	int i, j;
