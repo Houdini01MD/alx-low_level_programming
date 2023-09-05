@@ -1,4 +1,5 @@
 #include "main.h"
+#include <stdlib.h>
 
 /**
  * _strdup - function that returns a pointer
@@ -13,7 +14,7 @@ char *_strdup(char *str)
 	int size;
 	char *pt;
 
-	if (str == NULL)
+	if (str == 0)
 	{
 		return (NULL);
 	}
