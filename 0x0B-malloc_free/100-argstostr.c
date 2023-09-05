@@ -17,9 +17,9 @@ int str_len(char *s)
 }
 
 /**
- * argstostr - function that concatenates all the arguments of your program.
+ * *argstostr - function that concatenates all the argumentr
  * @ac: variable type int
- * @av: variable type char
+ * @av: argstostr
  * Retuen: a pointer to a new string
 */
 char *argstostr(int ac, char **av)
