@@ -47,7 +47,7 @@ char **strtow(char *str)
 	p = (char **)malloc(c * sizeof(char *));
 	if (p == NULL)
 		return (NULL);
-	p[c - 1] == NULL;
+	p[c - 1] = NULL;
 	i = 0;
 	while (str[i])
 	{
