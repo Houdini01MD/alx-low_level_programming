@@ -8,29 +8,25 @@
 */
 int is_prime_number(int n)
 {
-	int i;
-
 	if (n <= 1)
-	{
 		return (0);
-	}
-	else if (n <= 3)
-	{
+	return (check_if_prime(n, 2));
+}
+
+/**
+ * check_if_prime - check if prime or not
+ * @n: the munmer
+ * @i: variable type int
+ * Return: int
+*/
+int check_if_prime(int n, int i)
+{
+	if (n == 2)
 		return (1);
-	}
-	else if (n % 2 == 0 || n % 3 == 0)
-	{
+	else if (n % i == 0)
 		return (0);
-	}
+	else if (i >= n / 2)
+		return (1);
 	else
-	{
-		for (i = 5; i * i <= n; i += 6)
-		{
-			if (n % i == 0 || n % (i + 2) == 0)
-			{
-				return (0);
-			}
-		}
-		return (1);
-	}
+		return (check_if_prime(n, i + 1));
 }
