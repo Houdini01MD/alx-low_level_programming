@@ -11,8 +11,6 @@
 int main(int argc, char **argv)
 {
 	int r;
-	int x = atoi(argv[1]);
-	int y = atoi(argv[2]);
 
 	if (argc != 3)
 	{
@@ -21,7 +19,7 @@ int main(int argc, char **argv)
 	}
 	else
 	{
-		r = x * y;
+		r = atoi(argv[1]) * atoi(argv[2]);
 		printf("%d\n", r);
 	}
 
