@@ -10,18 +10,20 @@
 
 int main(int argc, char *argv[])
 {
+	int r;
+	int x = atoi(argv[1]);
+	int y = atoi(argv[2]);
+
 	if (argc != 3)
 	{
 		printf("Error\n");
 		return (1);
 	}
-
-	int x = atoi(argv[1]);
-	int y = atoi(argv[2]);
-
-	int r = x * y;
-
-	printf("%d\n", r);
+	else
+	{
+		r = x * y;
+		printf("%d\n", r);
+	}
 
 	return (0);
 }
