@@ -6,9 +6,9 @@
  * @argc: argument count
  * @argv: argument vector
  * Return: 1 if are less of 2 arguments otherwise 0
- */
+*/
 
-int main(int argc, char *argv[])
+int main(int argc, char **argv[])
 {
 	int r;
 	int x = atoi(argv[1]);
