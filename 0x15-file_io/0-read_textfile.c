@@ -10,50 +10,42 @@
 */
 ssize_t read_textfile(const char *filename, size_t letters)
 {
-    FILE *file;
-    char *buffer;
-    ssize_t readB, writeB;
+	int file;
+	char *buffer;
+	ssize_t writeB, readB;
 
-    if (filename == NULL)
-        return (0);
+	if (filename == NULL)
+		return (0);
 
-    file = fopen(filename, "r");
-    if (file == NULL)
-        return (0);
+	buffer = malloc(letters);
+	if (buffer == NULL)
+		return (0);
 
-    buffer = malloc(letters);
-    if (buffer == NULL)
-    {
-        fclose(file);
-        return (0);
-    }
+	file = open(filename, O_RDONLY);
+	if (file == -1)
+	{
+		free(buffer);
+		return (0);
+	}
 
-    readB = fread(buffer, 1, letters, file);
-    if (readB == 0)
-    {
-        fclose(file);
-        free(buffer);
-        return (0);
-    }
+	readB = read(file, buffer, letters);
+	if (readB == -1)
+	{
+		free(buffer);
+		close(file);
+		return (0);
+	}
 
-    writeB = fwrite(buffer, 1, readB, stdout);
-    if (writeB != readB)
-    {
-        fclose(file);
-        free(buffer);
-        return (0);
-    }
+	writeB = write(STDOUT_FILENO, buffer, readB);
+	if (writeB == -1 || (size_t)writeB != letters)
+	{
+		free(buffer);
+		close(file);
+		return (0);
+	}
 
-    putchar('\n');
-
-    if (fclose(file) == EOF)
-    {
-        perror("Error closing file");
-        free(buffer);
-        return (0);
-    }
-
-    free(buffer);
-    return (writeB);
+	free(buffer);
+	close(file);
+	return (writeB);
 }
 
