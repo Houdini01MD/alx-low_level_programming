@@ -11,10 +11,9 @@
 ssize_t read_textfile(const char *filename, size_t letters)
 {
 	FILE *file;
-
 	char *buffer;
-
 	ssize_t readB, writeB;
+	char newline;
 
 	if (filename == NULL)
 		return (0);
@@ -26,25 +25,24 @@ ssize_t read_textfile(const char *filename, size_t letters)
 	buffer = malloc(letters);
 	if (buffer == NULL)
 	{
-		fclose(file);
 		return (0);
 	}
 
 	readB = fread(buffer, 1, letters, file);
 	if (readB == 0)
 	{
-		fclose(file);
-		free(buffer);
 		return (0);
 	}
 
 	writeB = fwrite(buffer, 1, readB, stdout);
 	if (writeB != readB)
 	{
-		fclose(file);
-		free(buffer);
 		return (0);
 	}
+
+	newline = '\n';
+
+	fwrite(&newline, 1, 1, stdout);
 
 	fclose(file);
 	free(buffer);
