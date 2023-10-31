@@ -38,7 +38,7 @@ ssize_t read_textfile(const char *filename, size_t letters)
 		return (0);
 	}
 
-	writeB = fwrite(buffer, 1, readB, stdin);
+	writeB = fwrite(buffer, 1, readB, stdout);
 	if (writeB != readB)
 	{
 		fclose(file);
