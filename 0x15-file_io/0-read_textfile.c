@@ -13,7 +13,7 @@ ssize_t read_textfile(const char *filename, size_t letters)
 	FILE *file;
 	char *buffer;
 	ssize_t readB, writeB;
-	char newline;
+
 
 	if (filename == NULL)
 		return (0);
@@ -39,10 +39,6 @@ ssize_t read_textfile(const char *filename, size_t letters)
 	{
 		return (0);
 	}
-
-	newline = '\n';
-
-	fwrite(&newline, 1, 1, stdout);
 
 	fclose(file);
 	free(buffer);
