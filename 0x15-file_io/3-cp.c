@@ -14,8 +14,8 @@ void exit_error(int error_code, const char *message)
 
 /**
 * main - check the code
-* @ac: var type int
-* @av: var type char
+* @argc: var type int
+* @argv: var type char
 * Return: Always 0.
 */
 int main(int argc, char *argv[])
