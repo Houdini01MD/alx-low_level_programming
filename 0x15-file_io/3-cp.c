@@ -1,70 +1,80 @@
 #include "main.h"
 
 /**
-* copy_file - print error and exit
-* @src: var type char
-* @dest: var type char
-* Return: void
-*/
-void copy_file(const char *src, const char *dest)
+ * exit_with_error - close the error file
+ * @file_from: the file from
+ * @file_to: the file to
+ * Return: void
+ */
+void exit_with_error(int file_from, int file_to)
 {
-	int fd_in;
-	int fd_out;
-	char buffer[4096];
-	ssize_t bytes_read;
-
-	fd_in = open(src, O_RDONLY);
-	if (fd_in == -1)
-	{
-		perror("Error opening source file");
-		exit(1);
-	}
-
-	fd_out = open(dest, O_WRONLY | O_CREAT | O_TRUNC, 0666);
-
-	if (fd_out == -1)
-	{
-		perror("Error opening destination file");
-		close(fd_in);
-		exit(1);
-	}
-
-	while ((bytes_read = read(fd_in, buffer, sizeof(buffer))) > 0)
-	{
-		if (write(fd_out, buffer, bytes_read) != bytes_read)
-		{
-			perror("Error writing to destination file");
-			close(fd_in);
-			close(fd_out);
-			exit(1);
-		}
-	}
-	if (bytes_read == -1)
-	{
-		perror("Error reading from source file");
-		close(fd_in);
-		close(fd_out);
-		exit(1);
-	}
-	close(fd_in);
-	close(fd_out);
+    if (close(file_from) == -1)
+    {
+        perror("Error: Can't close fd");
+        exit(100);
+    }
+    if (close(file_to) == -1)
+    {
+        perror("Error: Can't close fd");
+        exit(100);
+    }
 }
 
 /**
-* main - check the code
-* @argc: var type int
-* @argv: var type char
-* Return: Always 0.
-*/
-int main(int argc, char *argv[])
+ *main - copies the content of a file to another file.
+ *@ac: int arguments
+ *@av: char arguments
+ *Return: int
+ */
+int main(int ac, char **av)
 {
-	if (argc != 3)
-	{
-		fprintf(stderr, "Usage: %s source destination\n", argv[0]);
-		exit(1);
-	}
+    int file_from, file_to, write_bytes, read_bytes;
+    char buffer[1024];
 
-	copy_file(argv[1], argv[2]);
+    if (ac != 3)
+    {
+        fprintf(stderr, "Usage: cp file_from file_to\n"), exit(97);
+    }
 
-	return (0);
+    file_from = open(av[1], O_RDONLY);
+    if (file_from == -1)
+    {
+        perror("Error: Can't read from file");
+        exit(98);
+    }
+
+    file_to = open(av[2], O_WRONLY | O_CREAT | O_TRUNC, 0664);
+    if (file_to == -1)
+    {
+        perror("Error: Can't write to file");
+        exit_with_error(file_from, file_to);
+        exit(99);
+    }
+
+    while ((read_bytes = read(file_from, buffer, 1024)) > 0)
+    {
+        write_bytes = write(file_to, buffer, read_bytes);
+        if (write_bytes == -1)
+        {
+            perror("Error: Can't write to file");
+            exit_with_error(file_from, file_to);
+            exit(99);
+        }
+        else if (read_bytes != write_bytes)
+        {
+            fprintf(stderr, "Error: Partial write\n");
+            exit_with_error(file_from, file_to);
+            exit(99);
+        }
+    }
+
+    if (read_bytes == -1)
+    {
+        perror("Error: Can't read from file");
+        exit_with_error(file_from, file_to);
+        exit(98);
+    }
+
+    exit_with_error(file_from, file_to);
+    return (0);
 }
